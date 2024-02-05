@@ -15,7 +15,7 @@ class Product:
         if self.check_quantity(quantity):
             self.quantity -= quantity
         else:
-            raise ValueError
+            raise ValueError(f"Недостаточное кол-во товара")
 
     def __hash__(self):
         return hash(self.name + self.description)
@@ -28,7 +28,9 @@ class Cart:
         self.products = {}
 
     def add_product(self, product: Product, buy_count=1):
-        if product in self.products:
+        if not product.check_quantity(buy_count):
+            raise ValueError(f"Невозможно добавить в корзину, недостаточно товара {product.name}.")
+        elif product in self.products:
             self.products[product] += buy_count
         else:
             self.products[product] = buy_count
