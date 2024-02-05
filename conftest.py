@@ -13,7 +13,6 @@ def cart():
 
 
 @pytest.fixture
-def fill_cart(product):
-    cart = Cart()
+def fill_cart(product, cart):
     cart.add_product(product, 10)
     return cart
